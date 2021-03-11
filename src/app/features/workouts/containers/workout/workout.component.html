@@ -1,0 +1,72 @@
+<div class="panel">
+  <div class="panel-heading space-between flex align-items-center">
+    <span><i class="fa fa-dumbbell"></i> Add training:</span>
+  </div>
+  <div class="panel-block">
+    <!-- <app-workout-form> -->
+    <form>
+      <div class="field">
+        <label>
+          <b>Workout name:</b>
+          <input class="input" type="text" placeholder="e.g. Benchpress" />
+        </label>
+      </div>
+
+      <div class="field">
+        <b class="is-block">Type:</b>
+        <label class="radio">
+          Strength:
+          <input name="type" type="radio" />
+        </label>
+        <label class="radio">
+          Endurance:
+          <input name="type" type="radio" />
+        </label>
+      </div>
+
+      <div class="flex space-between">
+        <div class="field">
+          <label>
+            <b>Reps:</b>
+            <input class="input" type="text" />
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            <b>Sets:</b>
+            <input class="input" type="text" />
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            <b>Weight:</b>
+            <input class="input" type="text" />
+          </label>
+        </div>
+      </div>
+
+      <div class="flex space-between">
+        <div class="field">
+          <label>
+            <b>Distance(km):</b>
+            <input class="input" type="text" />
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            <b>Duration(min):</b>
+            <input class="input" type="text" />
+          </label>
+        </div>
+      </div>
+
+      <div class="actions flex space-between">
+        <button class="button" routerLink="../">Cancel</button>
+        <button class="button is-primary">Add</button>
+      </div>
+    </form>
+
+    <!-- </app-workout-form> -->
+  </div>
+</div>
+
