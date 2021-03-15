@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [ListItemComponent],
+  exports: [ListItemComponent],
+  imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}
