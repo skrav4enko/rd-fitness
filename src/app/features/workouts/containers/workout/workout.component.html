@@ -8,7 +8,8 @@
       <div class="field">
         <label>
           <b>Workout name:</b>
-          <input class="input" type="text" placeholder="e.g. Benchpress" />
+          <input (keyup)="onKeyUp(cardInput.value)" #cardInput class="input" type="text" placeholder="e.g. Benchpress" />
+          <img appCardType alt="card type" [cardNumber]="cardNumber" />
         </label>
       </div>
 

@@ -7,8 +7,9 @@
   </div>
 
   <app-list-item
-    *ngFor="let meal of meals"
+    *ngFor="let meal of (meals$ | async)"
     [item]="meal"
     (deleted)="handleDelete($event)"
   ></app-list-item>
+
 </div>

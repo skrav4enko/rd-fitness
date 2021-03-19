@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./workout.component.scss']
 })
 export class WorkoutComponent implements OnInit {
-
+  cardNumber: string;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onKeyUp(value: string): void {
+    this.cardNumber = value;
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap, tap } from 'rxjs/operators';
+import { share, switchMap, tap } from 'rxjs/operators';
 
 import { Workout } from 'src/app/core/models/workout.model';
 import { WorkoutsService } from '../../services/workouts.service';
