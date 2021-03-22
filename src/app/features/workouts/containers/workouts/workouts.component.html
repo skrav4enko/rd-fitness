@@ -5,9 +5,17 @@
       Add Training
     </button>
   </div>
+  <input
+    class="input my-3"
+    type="text"
+    placeholder="Search"
+    [formControl]="searchControl"
+  />
+
   <app-list-item
     *ngFor="let workout of workouts"
     [item]="workout"
+    (edit)="handleEdit($event)"
     (deleted)="handleDelete($event)"
   ></app-list-item>
 </div>

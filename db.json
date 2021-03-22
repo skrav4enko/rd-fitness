@@ -45,6 +45,20 @@
         "distance": 0,
         "duration": 0
       }
+    },
+    {
+      "name": "Hello Running",
+      "type": "endurance",
+      "strength": {
+        "reps": "",
+        "sets": "",
+        "weight": ""
+      },
+      "endurance": {
+        "duration": "200",
+        "distance": "42"
+      },
+      "id": 3
     }
   ]
 }

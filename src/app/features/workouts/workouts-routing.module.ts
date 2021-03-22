@@ -6,16 +6,20 @@ import { WorkoutComponent } from './containers/workout/workout.component';
 const routes: Routes = [
   {
     path: '',
-    component: WorkoutsComponent
+    component: WorkoutsComponent,
   },
   {
     path: 'add',
-    component: WorkoutComponent
-  }
+    component: WorkoutComponent,
+  },
+  {
+    path: ':id',
+    component: WorkoutComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WorkoutsRoutingModule { }
+export class WorkoutsRoutingModule {}

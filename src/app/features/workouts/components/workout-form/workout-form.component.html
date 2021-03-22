@@ -1,0 +1,103 @@
+<form [formGroup]="workoutForm">
+  <div class="field">
+    <label>
+      <b>Workout name:</b>
+      <input
+        formControlName="name"
+        class="input"
+        type="text"
+        placeholder="e.g. Benchpress"
+      />
+    </label>
+    <span class="error" *ngIf="workoutForm.get('name').hasError('required')"
+      >requried</span
+    >
+  </div>
+
+  <div class="field">
+    <b class="is-block">Type:</b>
+    <label class="radio">
+      Strength:
+      <input name="type" type="radio" value="strength" formControlName="type" />
+    </label>
+    <label class="radio">
+      Endurance:
+      <input
+        name="type"
+        type="radio"
+        value="endurance"
+        formControlName="type"
+      />
+    </label>
+  </div>
+
+  <div
+    class="flex space-between"
+    *ngIf="isStrengthVisible"
+    formGroupName="strength"
+  >
+    <div class="field">
+      <label>
+        <b>Reps:</b>
+        <input class="input" type="text" formControlName="reps" />
+      </label>
+    </div>
+    <div class="field">
+      <label>
+        <b>Sets:</b>
+        <input class="input" type="text" formControlName="sets" />
+      </label>
+      <span class="error" *ngIf="isSetsRangeInvalid">Sets out of range</span>
+    </div>
+    <div class="field">
+      <label>
+        <b>Weight:</b>
+        <input class="input" type="text" formControlName="weight" />
+      </label>
+      <span class="error" *ngIf="isWeightRangeInvalid"
+        >Weight out of range</span
+      >
+    </div>
+  </div>
+
+  <div
+    class="flex space-between"
+    *ngIf="isEnduranceVisible"
+    formGroupName="endurance"
+  >
+    <div class="field">
+      <label>
+        <b>Distance(km):</b>
+        <input class="input" type="text" formControlName="distance" />
+      </label>
+    </div>
+    <div class="field">
+      <label>
+        <b>Duration(min):</b>
+        <input class="input" type="text" formControlName="duration" />
+      </label>
+    </div>
+  </div>
+
+  <div>{{ workoutForm.value | json }}</div>
+
+  <div class="actions flex space-between">
+    <button type="button" class="button" routerLink="../">Cancel</button>
+    <button
+      *ngIf="!isEdit"
+      class="button is-primary"
+      (click)="onAdd()"
+      [disabled]="workoutForm.invalid"
+    >
+      Add
+    </button>
+    <button
+      *ngIf="isEdit"
+      class="button is-primary"
+      (click)="onEdit()"
+      [disabled]="workoutForm.invalid"
+    >
+      Edit
+    </button>
+  </div>
+</form>

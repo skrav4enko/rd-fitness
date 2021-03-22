@@ -6,10 +6,17 @@ import { WorkoutsRoutingModule } from './workouts-routing.module';
 import { WorkoutComponent } from './containers/workout/workout.component';
 import { WorkoutsService } from './services/workouts.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { WorkoutFormComponent } from './components/workout-form/workout-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [WorkoutsComponent, WorkoutComponent],
-  imports: [CommonModule, SharedModule, WorkoutsRoutingModule],
+  declarations: [WorkoutsComponent, WorkoutComponent, WorkoutFormComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    WorkoutsRoutingModule,
+    ReactiveFormsModule,
+  ],
   providers: [WorkoutsService],
 })
 export class WorkoutsModule {}

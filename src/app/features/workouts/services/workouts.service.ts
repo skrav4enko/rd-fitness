@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 
@@ -15,7 +16,8 @@ export class WorkoutsService {
 
   constructor(
     private workoutsApiService: WorkoutsApiService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) {}
 
   loadWorkouts(): Observable<Workout[]> {
@@ -24,6 +26,32 @@ export class WorkoutsService {
     return this.getWorkouts().pipe(
       tap((workouts) => this.omWorkoutsReceive(workouts)),
       finalize(() => this.loaderService.hide())
+    );
+  }
+
+  getWorkoutById(id: number): Observable<Workout> {
+    this.loaderService.show();
+
+    return this.workoutsApiService
+      .getWorkout(id)
+      .pipe(finalize(() => this.loaderService.hide()));
+  }
+
+  addWorkout(workout: Workout): Observable<Workout> {
+    this.loaderService.show();
+
+    return this.workoutsApiService.addWorkout(workout).pipe(
+      finalize(() => this.loaderService.hide()),
+      tap(() => this.router.navigate(['/workouts']))
+    );
+  }
+
+  editWorkout(workout: Workout): Observable<Workout> {
+    this.loaderService.show();
+
+    return this.workoutsApiService.editWorkout(workout).pipe(
+      finalize(() => this.loaderService.hide()),
+      tap(() => this.router.navigate(['/workouts']))
     );
   }
 
@@ -45,7 +73,7 @@ export class WorkoutsService {
     return this.workoutsApiService.deleteWorkout(id);
   }
 
-  private omWorkoutsReceive(workouts: Workout[]) {
+  private omWorkoutsReceive(workouts: Workout[]): void {
     this.workoutsSubject.next(workouts);
   }
 }
