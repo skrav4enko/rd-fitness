@@ -1,36 +1,13 @@
 <div class="panel">
   <div class="panel-heading space-between flex align-items-center">
-    <span><i class="fa fa-utensils"></i> Add Meal:</span>
+    <span><i class="fa fa-utensils"></i> {{ id ? "Edit" : "Add" }} Meal:</span>
   </div>
 
   <div class="panel-block">
-    <!-- <app-meal-form> -->
-    <form>
-      <div class="field">
-        <label>
-          <b>Meal name:</b>
-          <input class="input" type="text" placeholder="e.g. Spaghetti" />
-        </label>
-      </div>
-
-      <div class="flex space-between p-10">
-        <b>Ingredients:</b>
-        <button class="button is-primary is-small">+ Ingredient</button>
-      </div>
-
-      <div class="field">
-        <label class="ingredient-label">
-          <input class="input" type="text" placeholder="e.g. Egg" />
-          <button class="button is-danger">X</button>
-        </label>
-      </div>
-
-      <div class="actions flex space-between">
-        <button routerLink="../" class="button">Cancel</button>
-        <button class="button is-primary">Add</button>
-      </div>
-    </form>
-    <!-- </app-meal-form> -->
+    <app-meal-form
+      [meal]="meal"
+      (create)="createMeal($event)"
+      (update)="updateMeal($event)"
+    ></app-meal-form>
   </div>
 </div>
-

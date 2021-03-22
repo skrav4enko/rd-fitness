@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Meal } from 'src/app/core/models/meal.model';
@@ -12,7 +13,8 @@ export class MealsService {
 
   constructor(
     private mealsApiService: MealsApiService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) {}
 
   loadMeals(): Observable<Meal[]> {
@@ -33,6 +35,32 @@ export class MealsService {
     );
   }
 
+  createMealHandler(meal: Meal): Observable<Meal> {
+    this.loaderService.show();
+
+    return this.mealsApiService.createMeal(meal).pipe(
+      tap(() => this.router.navigate(['/meals'])),
+      finalize(() => this.loaderService.hide())
+    );
+  }
+
+  updateMealById(meal: Meal): Observable<Meal> {
+    this.loaderService.show();
+
+    return this.mealsApiService.updateMeal(meal).pipe(
+      tap(() => this.router.navigate(['/meals'])),
+      finalize(() => this.loaderService.hide())
+    );
+  }
+
+  getMealById(id: number): Observable<Meal> {
+    this.loaderService.show();
+
+    return this.mealsApiService
+      .getMeal(id)
+      .pipe(tap(() => this.loaderService.hide()));
+  }
+
   private getMeals(): Observable<Meal[]> {
     return this.mealsApiService.getMeals();
   }
@@ -41,7 +69,7 @@ export class MealsService {
     return this.mealsApiService.deleteMeal(id);
   }
 
-  private onMealsReceive(meals: Meal[]) {
+  private onMealsReceive(meals: Meal[]): void {
     this.mealsSubject.next(meals);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { pipe, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Meal } from 'src/app/core/models/meal.model';
@@ -14,7 +15,7 @@ export class MealsComponent implements OnInit, OnDestroy {
 
   private destroyed$ = new Subject<void>();
 
-  constructor(private mealsService: MealsService) {}
+  constructor(private mealsService: MealsService, private router: Router) {}
 
   ngOnInit(): void {
     this.mealsService.loadMeals().subscribe();
@@ -25,7 +26,6 @@ export class MealsComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
-    // this.mealsService.getMeals().pipe(take(1)).subscribe();
 
     // this.sub = fromEvent(document.body, 'click')
     //   .pipe(
@@ -42,6 +42,10 @@ export class MealsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  handleEdit(id: number): void {
+    this.router.navigate([`meals/${id}`]);
   }
 
   handleDelete(id: number): void {
