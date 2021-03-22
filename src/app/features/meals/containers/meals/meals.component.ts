@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { delay, filter, map, switchMap, take, takeUntil, takeWhile, tap } from 'rxjs/operators';
-
+import { pipe, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 import { Meal } from 'src/app/core/models/meal.model';
 import { MealsService } from '../../service/meals.service';
 
@@ -11,17 +10,22 @@ import { MealsService } from '../../service/meals.service';
   styleUrls: ['./meals.component.scss'],
 })
 export class MealsComponent implements OnInit, OnDestroy {
-  meals$: Observable<Meal[]> = this.mealsService.meals$;
+  meals: Meal[];
 
-  // sub: Subscription;
-  isAlive = true;
+  private destroyed$ = new Subject<void>();
 
   constructor(private mealsService: MealsService) {}
 
   ngOnInit(): void {
-    this.mealsService.getMeals().pipe(
-      take(1)
-    ).subscribe();
+    this.mealsService.loadMeals().subscribe();
+    this.mealsService.meals$
+      .pipe(
+        tap((meals) => (this.meals = meals)),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+
+    // this.mealsService.getMeals().pipe(take(1)).subscribe();
 
     // this.sub = fromEvent(document.body, 'click')
     //   .pipe(
@@ -36,16 +40,11 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // this.sub.unsubscribe();
-    this.isAlive = false;
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   handleDelete(id: number): void {
-    this.mealsService
-      .deleteMeal(id)
-      .pipe(
-        switchMap(() => this.mealsService.getMeals()),
-      )
-      .subscribe();
+    this.mealsService.deleteMealById(id).subscribe();
   }
 }

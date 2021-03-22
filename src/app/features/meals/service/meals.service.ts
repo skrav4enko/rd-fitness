@@ -1,31 +1,47 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { Meal } from 'src/app/core/models/meal.model';
 import { MealsApiService } from 'src/app/core/services/meals-api.service';
 import { LoaderService } from '../../../core/services/loader.service';
-import { catchError, take, tap } from 'rxjs/operators';
 
 @Injectable()
 export class MealsService {
-  mealsSubject = new BehaviorSubject<Meal[]>([]);
+  private mealsSubject = new BehaviorSubject<Meal[]>([]);
   meals$ = this.mealsSubject.asObservable();
 
-  constructor(private mealsApiService: MealsApiService, private loaderService: LoaderService) {}
+  constructor(
+    private mealsApiService: MealsApiService,
+    private loaderService: LoaderService
+  ) {}
 
-  getMeals(): Observable<Meal[]> {
+  loadMeals(): Observable<Meal[]> {
     this.loaderService.show();
-    return this.mealsApiService.getMeals().pipe(
-      tap((meals: Meal[]) => this.mealsSubject.next(meals)),
-      tap(() => this.loaderService.hide()),
-      catchError((err) => {
-        this.loaderService.hide();
-        return of(err)
-      })
+    return this.getMeals().pipe(
+      tap((meals: Meal[]) => this.onMealsReceive(meals)),
+      finalize(() => this.loaderService.hide())
     );
   }
 
-  deleteMeal(id: number): Observable<{}> {
+  deleteMealById(id: number): Observable<{}> {
+    this.loaderService.show();
+
+    return this.deleteMeal(id).pipe(
+      switchMap(() => this.getMeals()),
+      tap((meals) => this.onMealsReceive(meals)),
+      finalize(() => this.loaderService.hide())
+    );
+  }
+
+  private getMeals(): Observable<Meal[]> {
+    return this.mealsApiService.getMeals();
+  }
+
+  private deleteMeal(id: number): Observable<{}> {
     return this.mealsApiService.deleteMeal(id);
+  }
+
+  private onMealsReceive(meals: Meal[]) {
+    this.mealsSubject.next(meals);
   }
 }

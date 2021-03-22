@@ -4,17 +4,17 @@
     {
       "id": 1,
       "name": "Spaghetti",
-      "ingredients": [ "pasta", "cheese" ]
+      "ingredients": ["Pasta", "Tomato", "Meat"]
     },
     {
       "id": 2,
       "name": "English Breakfast",
-      "ingredients": [ "egg", "sausage", "tomato" ]
+      "ingredients": ["Toast", "Egg", "Beans"]
     },
     {
       "id": 3,
       "name": "Pizza",
-      "ingredients": [ "tomato", "pepperoni", "cheese" ]
+      "ingredients": ["Dough", "Sauce", "Pepperoni", "Mozzarella cheese"]
     }
   ],
   "workouts": [

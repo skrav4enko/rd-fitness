@@ -1,1 +1,12 @@
-<p class="my-loader" *ngIf="getLoadingState() | async">Loading...</p>
+<div class="my-loader" *ngIf="getLoadingState() | async">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
