@@ -5,25 +5,37 @@ import { APP_ROUTES } from './app.constans';
 const routes: Routes = [
   {
     path: APP_ROUTES.schedule,
-    loadChildren: () => import('./features/schedule/schedule.module').then(m => m.ScheduleModule)
+    loadChildren: () =>
+      import('./features/schedule/schedule.module').then(
+        (m) => m.ScheduleModule
+      ),
   },
   {
     path: APP_ROUTES.workouts,
-    loadChildren: () => import('./features/workouts/workouts.module').then(m => m.WorkoutsModule)
+    loadChildren: () =>
+      import('./features/workouts/workouts.module').then(
+        (m) => m.WorkoutsModule
+      ),
   },
   {
     path: APP_ROUTES.meals,
-    loadChildren: () => import('./features/meals/meals.module').then(m => m.MealsModule)
+    loadChildren: () =>
+      import('./features/meals/meals.module').then((m) => m.MealsModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./features/login/login.module').then((m) => m.LoginModule),
   },
   {
     path: '',
     redirectTo: 'schedule',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

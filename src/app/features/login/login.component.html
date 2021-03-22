@@ -1,0 +1,47 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="field">
+    <label><b>First name:</b></label>
+    <input
+      class="input"
+      #firstName="ngModel"
+      type="text"
+      required
+      name="firstName"
+      [(ngModel)]="user.firstName"
+    />
+    <span
+      class="error"
+      [hidden]="!firstName.errors?.required || !firstName.touched"
+      >First name is required</span
+    >
+  </div>
+  <div class="field">
+    <label><b>Password:</b></label>
+    <input
+      class="input"
+      #password="ngModel"
+      type="password"
+      name="password"
+      required
+      minlength="5"
+      [(ngModel)]="user.password"
+    />
+    <span
+      class="error"
+      [hidden]="!password.errors?.minlength || password.pristine"
+      >Min length 5</span
+    >
+  </div>
+  <div class="field">
+    <label><b>Save session: </b></label>
+    <input
+      type="checkbox"
+      name="saveCredentials"
+      [(ngModel)]="user.saveCredentials"
+    />
+  </div>
+  <div class="actions flex space-between">
+    <button type="submit" class="button is-primary">Submit</button>
+  </div>
+  <div>{{ user | json }}</div>
+</form>
