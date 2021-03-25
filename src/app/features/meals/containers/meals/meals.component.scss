@@ -1,0 +1,13 @@
+//::ng-deep .item {
+//  text-align: left !important;
+//}
+
+:host {
+  --itemAlign: center;
+}
+
+//.menu-list {
+//  li {
+//    background: crimson;
+//  }
+//}

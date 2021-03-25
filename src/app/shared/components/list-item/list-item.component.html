@@ -4,6 +4,7 @@
     <p *ngIf="item.ingredients; else workout">
       {{ item.ingredients | ingredients }}
     </p>
+
     <ng-template #workout>
       <p>{{ item | appWorkouts }}</p>
     </ng-template>

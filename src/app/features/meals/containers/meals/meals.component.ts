@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { pipe, Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Meal } from 'src/app/core/models/meal.model';
 import { MealsService } from '../../service/meals.service';
@@ -9,15 +9,17 @@ import { MealsService } from '../../service/meals.service';
   selector: 'app-meals',
   templateUrl: './meals.component.html',
   styleUrls: ['./meals.component.scss'],
+  // encapsulation: ViewEncapsulation.None,
 })
 export class MealsComponent implements OnInit, OnDestroy {
   meals: Meal[];
 
   private destroyed$ = new Subject<void>();
 
-  constructor(private mealsService: MealsService, private router: Router) {}
+  constructor(private mealsService: MealsService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    console.log(this.activatedRoute.snapshot.data);
     this.mealsService.loadMeals().subscribe();
     this.mealsService.meals$
       .pipe(

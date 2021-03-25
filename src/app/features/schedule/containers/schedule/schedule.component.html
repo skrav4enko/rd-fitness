@@ -2,20 +2,17 @@
   <div class="field">
     <div class="control">
       <label for="schedule-date">Schedule date</label>
-      <input class="input" id="schedule-date" type="date" />
+      <input class="input" id="schedule-date" type="date" #input/>
     </div>
   </div>
 </div>
 
 <div class="board-section">
   <div class="panel">
-    <div class="panel-heading">Morning</div>
-    <div class="panel-block item">
-      <i class="fa fa-utensils"></i> Eggs
-    </div>
-    <div class="panel-block item">
-      <i class="fa fa-dumbbell"></i> Pushups
-    </div>
+    <app-schedule-item [type]="itemType">
+      <h3 #h3>Morning</h3>
+      <span>Eggs</span>
+    </app-schedule-item>
   </div>
   <div class="panel">
     <div class="panel-heading">Lunch</div>
