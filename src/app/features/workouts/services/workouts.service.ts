@@ -24,7 +24,7 @@ export class WorkoutsService {
     this.loaderService.show();
 
     return this.getWorkouts().pipe(
-      tap((workouts) => this.omWorkoutsReceive(workouts)),
+      tap((workouts) => this.onWorkoutsReceive(workouts)),
       finalize(() => this.loaderService.hide())
     );
   }
@@ -60,7 +60,7 @@ export class WorkoutsService {
 
     return this.deleteWorkout(id).pipe(
       switchMap(() => this.getWorkouts()),
-      tap((workouts) => this.omWorkoutsReceive(workouts)),
+      tap((workouts) => this.onWorkoutsReceive(workouts)),
       finalize(() => this.loaderService.hide())
     );
   }
@@ -73,7 +73,7 @@ export class WorkoutsService {
     return this.workoutsApiService.deleteWorkout(id);
   }
 
-  private omWorkoutsReceive(workouts: Workout[]): void {
+  private onWorkoutsReceive(workouts: Workout[]): void {
     this.workoutsSubject.next(workouts);
   }
 }
